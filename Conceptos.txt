@@ -1,0 +1,223 @@
+var = se puede cambiar el valor de la variable.
+
+=========================================
+Con let se puede sobreescribir
+
+let = se declara, no puede volver a declararse de nuevo, pero si cambiar el valor ej:
+
+Se puede:
+let edad =  20
+edad = 30
+console.log(edad)
+
+No se puede:
+let edad =  20
+let edad = 30
+console.log(edad)
+
+let tambien sirve para mantener valores dentro de if, sin cambiar el scope de afuera: ejemplo
+
+let edad = 10
+
+    if(true){
+        let edad = 20
+        console.log(edad)
+    }
+
+console.log(edad)
+
+=========================================
+
+No se puede sobreescribir con const.
+
+const edad = 10
+const edad = 20
+
+//pero a los arreglos si se puede poner un push.
+const arrayNumero = [10,20,30]
+arrayNumero.push(40)
+console.log(arrayNumero)
+
+
+//tambien se puede cambiar una const dentro de un array por fuera, se pueden cambiar sus propiedades.
+
+const persona = {
+    nombre: 'perdo',
+    edad: 40
+}
+
+persona.edad = 21
+persona.pais = chile
+
+console.log(persona)
+
+=========================================
+
+FUNCTION ARROW
+
+function sumar(){
+    console.log(10)
+}
+sumar()
+
+
+const sumarDos = (num1, num2) => {
+    console.log(num1 + num2)
+}
+sumarDos(2,5)
+
+
+const sumarTres = (num1, num2) => (num1 + num2)
+const resultado = sumarTres(20, 30)
+console.log(resultado)
+
+
+const mensaje = nombre => ('hola soy ' + nombre)
+const resultadoCuatro = mensaje('Michel')
+console.log(resultadoCuatro)
+
+
+=========================================
+
+Template Strings es escribir con `` (alt + arriba del enter ), sirve para escribir js en  {}
+
+const numero = (num, num2) => (
+    return `el numero es: ${num +  num2}`
+)
+conts resultado = numero(10, 30)
+console.log(resultado)
+
+=========================================
+
+OBJETOS
+
+const mascota = {
+    nombre : 'karín',
+    edad: 9,
+    vivo: true,
+    razas: ['peludo', 'negro']
+}
+
+console.log(mascota.razas[1])
+console.log(mascota.nombre)
+console.log(mascota.edad)
+console.log(mascota.vivo)
+
+//se le da un id al objeto
+mascota.id = 1
+
+console.log(mascota.id)
+
+
+
+
+DESTRUCTURING OBJETCS const {} = objeto
+
+const {edad, nombre} = mascota
+console.log(edad, nombre)
+
+=========================================
+
+ARRAY DE OBJETOS
+
+
+//objetos dentro un objeto con destructuring objetct
+
+const web = {
+    nombre: 'miWeb',
+    links: {
+        enlace: 'www.miWeb.cl'
+    },
+redesSociales:{
+        youtube:{
+        enlace: 'youtube.com/miWeb',
+        nombre: 'miWeb yt'
+        }
+    }
+}
+
+//obtener enlace: 'youtube.com/miWeb'
+console.log(web.redesSociales.youtube.enlace)
+
+//si se quiere gaurdar dentro de una constante:
+const enlaceyt = web.redesSociales.youtube.enlace
+console.log(enlaceyt)
+
+//entrasr a enlace y nombre x DESTRUCTURING OBJETCS
+const {enlace, nombre} = web.redesSociales.youtube
+console.log(enlace)
+console.log(nombre)
+
+
+=========================================
+//se consume una api de pkmn
+FETCH  (para consumir apis)
+
+fetch('https://pokeapi.co/api/v2/pokemon/')
+        .then( res => res.json())
+        .then(data => {
+            //console.log(data.results)
+            data.results.forEach(element => {
+                console.log(element.name)
+            });
+        })
+        .catch(error => console.log(error))
+
+
+=========================================
+
+//async await
+//await siempre funciona si está dentro de una función async
+//await dice que esperemos la respuesta de fetch
+
+const obtenerPokemones = async() => {
+    try{
+    const res = await fetch('https://pokeapi.co/api/v2/pokemon/')
+    const data = await res.json()
+    console.log(data.results)
+    }catch (error){
+        console.log(error)
+    }
+}
+
+obtenerPokemones()
+
+=========================================
+
+//MAP se copió lo de arriba pero se puso MAP
+
+const obtenerPokemones = async() => {
+    try{
+    const res = await fetch('https://pokeapi.co/api/v2/pokemon/')
+    const data = await res.json()
+    //console.log(data.results)
+    const arrayNombres =data.results.map(poke => poke.name) //devuelve todo el arrya de obj por nombre de pkmn
+    console.log(arrayNombres)
+    }catch (error){
+        console.log(error)
+    }
+}
+
+obtenerPokemones()
+
+=========================================
+
+//FILTER
+crea un nuevo array con los elementos que tengan una condición
+
+
+const obtenerPokemones = async() => {
+    try{
+    const res = await fetch('https://pokeapi.co/api/v2/pokemon/')
+    const data = await res.json()
+    //console.log(data.results)
+    const arrayNombres =data.results.filter(poke => poke.name !== 'bulbasaur') 
+    console.log(arrayNombres)
+    }catch (error){
+        console.log(error)
+    }
+}
+
+obtenerPokemones()
+
+
